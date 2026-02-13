@@ -1,14 +1,34 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace GeniIdiot
 {
-    public class Question
+    class QuestionsStorage
     {
-        public string Text;
-        public string Answer;
+        private List<Question> questions;
+        List<Question> GetAll()
+            {
+                Question question1 = new Question();
+                question1.Text = "Сколько будет 2 + 2?";
+                question1.Answer = "4";
+                questions.Add(question1);
+            }
+        void Add() {
+            Question newQuestion1 = new Question();
+            newQuestion1.Text = newQuestion;
+            newQuestion1.Answer = newAnswer;
+            questions.Add(newQuestion1);
+        }
+        void Remove(int index) { }
+    }
+    class Question 
+    {
+        private string Text;
+        private string Answer;
     }
     public class User 
     {
@@ -29,10 +49,10 @@ namespace GeniIdiot
                 Console.Write("Привет, введите свое имя: ");
                 string userName = Console.ReadLine();
                 Console.WriteLine();                
-
+                int listLength = questions.Count;
                 if (userName == "2106")
                 {
-                    AdminMode();
+                    AdminMode(listLength);
                     continue;
                 }
                 List<User> userList = new List<User>();
@@ -54,8 +74,9 @@ namespace GeniIdiot
                         Console.WriteLine();
                         Console.WriteLine("Отвечайте на вопросы. После каждого ответа нажимайте Enter.");
                         Console.WriteLine();
-                        correctAnswers = AnswerQuestions();
-                        diagnos = EndGame(correctAnswers, userName);
+                        
+                        correctAnswers = AnswerQuestions(listLength);
+                        diagnos = EndGame(correctAnswers, userName, listLength);
                         currentUser.NumTrueAns = correctAnswers;
                         currentUser.Diagnos = diagnos;
                         allUsers.Add(currentUser);
@@ -103,10 +124,8 @@ namespace GeniIdiot
         }       
 
         //////
-        static int AnswerQuestions()
+        static int AnswerQuestions(int listLength)
         {
-            List<Question> questions = new List<Question>();
-
             Question question1 = new Question();
             question1.Text = "Сколько будет 2 + 2?";
             question1.Answer = "4";
@@ -128,11 +147,11 @@ namespace GeniIdiot
             questions.Add(question4);
 
             int countCorrectAnswers = 0;
+            
 
-            for (int i = 0; i < questions.Count; i++)
+            for (int i = 0; i < listLength; i++)
             {
                 int randomIndex = new Random().Next(0, questions.Count);
-                Console.Write($"{i}");
                 Console.WriteLine(questions[randomIndex].Text);
                 string userAnswer = Console.ReadLine();
                 if (userAnswer.Trim().ToLower() == questions[randomIndex].Answer)
@@ -146,10 +165,10 @@ namespace GeniIdiot
         }   
 
         //////
-        static string EndGame(int correctAnswers, string userName)
+        static string EndGame(int correctAnswers, string userName, int listLength)
         {
             Console.WriteLine("Викторина завершена!");
-            Console.WriteLine($"Вы ответили правильно на {correctAnswers} из {questions.Count} вопросов.");
+            Console.WriteLine($"Вы ответили правильно на {correctAnswers} из {listLength} вопросов.");
             double percent = Math.Round((double)correctAnswers / questions.Count * 100, 1);
             string diagnos;
             if (percent <= 20)
@@ -219,7 +238,7 @@ namespace GeniIdiot
         }
 
         //////
-        static void AdminMode()
+        static void AdminMode(int listLength)
         {
             bool adminMenuActive = true; 
             while (adminMenuActive)
@@ -238,7 +257,7 @@ namespace GeniIdiot
                         break;
 
                     case 2:
-                        RemoveQuestion();
+                        RemoveQuestion(listLength);
                         break;
 
                     case 3:
@@ -262,29 +281,26 @@ namespace GeniIdiot
                 Console.WriteLine();
                 return;
             }
-            List<Question> questions = new List<Question>();
-            Question newQuestion1 = new Question();
-            newQuestion1.Text = newQuestion;            
+            Add();            
             Console.WriteLine();            
             Console.Write("Введите правильный ответ: ");
             string newAnswer = Console.ReadLine();
-            newQuestion1.Answer = newAnswer;
-            questions.Add(newQuestion1);
+            Add();
             Console.WriteLine("Вопрос успешно добавлен!");
             Console.WriteLine();
         }
 
         //////
-        static void RemoveQuestion()
+        static void RemoveQuestion(int listLength)
         {
-            if (questions.Count == 0)
+            if (listLength == 0)
             {
                 Console.WriteLine("Список вопросов пуст. Удалять нечего.");
                 return;
             }
 
             Console.WriteLine("Текущий список:");
-            for (int i = 0; i < questions.Count; i++)
+            for (int i = 0; i < listLength; i++)
             {
                 Console.WriteLine($"{i + 1}. {questions[i]}");
             }
