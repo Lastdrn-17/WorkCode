@@ -1,0 +1,7 @@
+C:\Users\User\source\repos\GameGeniusIdiot\GameGeniusIdiot\bin\Debug\GameGeniusIdiot.exe.config
+C:\Users\User\source\repos\GameGeniusIdiot\GameGeniusIdiot\bin\Debug\GameGeniusIdiot.exe
+C:\Users\User\source\repos\GameGeniusIdiot\GameGeniusIdiot\bin\Debug\GameGeniusIdiot.pdb
+C:\Users\User\source\repos\GameGeniusIdiot\GameGeniusIdiot\obj\Debug\GameGeniusIdiot.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\GameGeniusIdiot\GameGeniusIdiot\obj\Debug\GameGeniusIdiot.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\GameGeniusIdiot\GameGeniusIdiot\obj\Debug\GameGeniusIdiot.exe
+C:\Users\User\source\repos\GameGeniusIdiot\GameGeniusIdiot\obj\Debug\GameGeniusIdiot.pdb
